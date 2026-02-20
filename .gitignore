@@ -1,0 +1,35 @@
+# Data files (too large for GitHub)
+data.csv
+*.csv
+!combine_csv.py
+
+# PDF reference paper
+*.pdf
+
+# Temporary extraction files
+extract.py
+extracted_notebook_content.txt
+analysis_notebook_summary.txt
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
