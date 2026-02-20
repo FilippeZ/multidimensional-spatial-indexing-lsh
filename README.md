@@ -1,4 +1,4 @@
-<![CDATA[# 🔍 Multidimensional Spatial Indexing & LSH — High-Performance Hybrid Search for Healthcare Analytics
+# 🔍 Multidimensional Spatial Indexing & LSH — High-Performance Hybrid Search for Healthcare Analytics
 
 **Maximizing retrieval efficiency over millions of healthcare records through intelligent spatial pruning and locality-sensitive text similarity.**
 
@@ -9,37 +9,37 @@
 
 ---
 
-## 📋 Overview
-This project implements a high-performance framework for hybrid spatial-textual search over **18,324** hospital patient satisfaction records (CMS HCAHPS). By operationalizing **five multidimensional spatial data structures** and combining them with **Locality-Sensitive Hashing (LSH)**, we demonstrate a specialized search pipeline that eliminates ~50% of the search space with **zero accuracy loss** (Recall@5 = 1.0).
+## 📋 Executive Overview
+This project implements a rigorously benchmarked framework for hybrid spatial-textual search over **18,324** hospital patient satisfaction records (CMS HCAHPS). By operationalizing **five multidimensional spatial data structures** and combining them with **Locality-Sensitive Hashing (LSH)**, we introduce a specialized search pipeline that systematically eliminates ~50% of the search space with **zero accuracy loss** (Recall@5 = 1.0).
 
-## 🎯 The Problem
+## 🎯 The Business Problem
 Modern Healthcare Patient Experience (PX) data creates a unique "Search Dilemma":
-* **Scale & Latency:** Raw CMS datasets (~200MB) require rapid retrieval across numerical and textual dimensions.
-* **Complex Locality:** Records exist in a 3D numeric space `(ZIP Code, Year, Score)` and a high-dimensional text space.
-* **Performance Gap:** Brute-force `O(N)` text comparisons take **~2.0s** per query, failing interactive analytics requirements.
-* **Clinical Accuracy:** Unlike general web search, healthcare retrieval requires **identical results** to the exhaustive baseline to ensure statistical integrity.
+* **Scale & Latency:** Raw CMS datasets (~200MB) demand rapid, concurrent retrieval across numerical (ratings) and textual (feedback) dimensions.
+* **Complex Locality:** Records exist in a multifaceted 3D numerical space `(ZIP Code, Year, Score)` coupled with a high-dimensional unstructured text space.
+* **Performance Gap:** Traditional brute-force `O(N)` text comparisons take **~2.0s** per query, a critical bottleneck for interactive analytics requirements.
+* **Clinical Accuracy:** Unlike probabilistic web search, healthcare retrieval mandates **identical results** to the exhaustive baseline to strictly maintain statistical integrity.
 
 ## ✅ The Solution
-This platform transforms heavy search workloads into efficient "Glass Box" retrieval using a four-layered architectural strategy:
+This platform transforms heavy computational search workloads into an efficient, "Glass Box" retrieval architecture. We employ a four-layered strategy mapping directly to domain imperatives:
 
 | Feature | Method | Domain Alignment |
 | :--- | :--- | :--- |
-| **Spatial Pruning** | KD-Tree / Octree | ZIP-code based geographic filtering |
+| **Spatial Pruning** | KD-Tree / Octree | ZIP-code based geographic patient filtering |
 | **Temporal Locality** | Range Tree | Precise year-over-year performance tracking |
-| **Text Similarity** | MinHash LSH | Rapid grouping of similar patient feedback |
+| **Text Similarity** | MinHash LSH | Rapid grouping of analogous patient feedback |
 | **Precise Reranking** | Exact Jaccard | Guaranteed retrieval accuracy (Recall@5 = 1.0) |
 
 ---
 
 ## 🏗️ Architecture & Workflow
-The system follows a modular 4-layer architecture to separate ingestion logic from search controls:
+The system strictly adheres to a modular 4-layer architecture, decoupling ingestion logic from core algorithmic search controls:
 
-1. **Ingestion Layer:** CMS HCAHPS data merging, iterative sampling (random-seed 42), and feature selection.
-2. **Indexing Layer:** Building from-scratch spatial structures and MinHash signatures (128 permutations).
-3. **Retrieval Layer (Hybrid Control):** 
-   - **Stage 1:** Spatial kNN/Range query to extract neighbors.
-   - **Stage 2:** LSH bucket matching on neighbors + deterministic backfill.
-4. **Validation Layer:** PerformanceEvaluator measuring build time, query latency, and accuracy metrics.
+1. **Ingestion Layer:** CMS HCAHPS data merging, reproducible iterative sampling (random-seed 42), and deterministic feature selection.
+2. **Indexing Layer:** Constructing from-scratch geographic spatial structures and scalable MinHash signatures (128 permutations).
+3. **Retrieval Layer (Hybrid Control):**
+   - *Stage 1:* Spatial kNN/Range queries to rapidly extract geographic neighbors.
+   - *Stage 2:* LSH bucket matching on neighbors coupled with deterministic backfill.
+4. **Validation Layer:** End-to-end `PerformanceEvaluator` strictly measuring build time, query latency, and accuracy metrics.
 
 ## 📂 Project Structure
 ```text
@@ -48,7 +48,7 @@ project-root/
 ├── combine_csv.py                # 🐍 Data Ingestion & Sampling Pipeline
 ├── requirements.txt              # 📦 Environment Dependencies
 ├── Oδηγίες.txt                   # 📄 Original Research Instructions
-├── src/                          # 🧠 Algorithm Implementations (extracted from notebook)
+├── src/                          # 🧠 Algorithm Implementations 
 │   ├── spatial/                  # KD-Tree, Octree, Range-Tree, R-Tree
 │   └── lsh/                      # MinHash LSH Logic
 └── data/                         # 📊 CMS HCAHPS CSVs (Not Tracked)
@@ -65,8 +65,9 @@ pip install -r requirements.txt
 ```
 
 ### 2. Operationalize the Pipeline
+Prepare the dataset and launch the notebook:
 ```bash
-python combine_csv.py             # Merges CMS CSVs -> data.csv
+python combine_csv.py             # Generates data.csv
 jupyter notebook analysis_notebook.ipynb
 ```
 
@@ -127,4 +128,3 @@ Licensed under the MIT License — see [LICENSE](LICENSE) for details.
 ## 👤 Author
 **Filippos-Paraskevas Zygouris**
 [LinkedIn](https://www.linkedin.com/in/filippos-paraskevas-zygouris/) | [GitHub](https://github.com/FilippeZ)
-]]>
