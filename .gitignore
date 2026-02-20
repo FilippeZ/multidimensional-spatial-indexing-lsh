@@ -4,7 +4,7 @@ data.csv
 !combine_csv.py
 
 # PDF reference paper
-*.pdf
+# *.pdf
 
 # Temporary extraction files
 extract.py
