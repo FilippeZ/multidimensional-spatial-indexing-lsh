@@ -1,15 +1,8 @@
 # Data files (too large for GitHub)
 data.csv
+data/*.csv
 *.csv
 !combine_csv.py
-
-# PDF reference paper
-# *.pdf
-
-# Temporary extraction files
-extract.py
-extracted_notebook_content.txt
-analysis_notebook_summary.txt
 
 # Jupyter checkpoints
 .ipynb_checkpoints/
