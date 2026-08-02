@@ -21,6 +21,28 @@ The core technical contribution is a **two-phase hybrid search architecture**:
 
 ---
 
+## 📊 Visual Engineering Narrative & Benchmark Pipeline
+
+The architectural progression follows a clear performance pipeline:
+`The Data Dilemma (3D Geometry) ───► Spatial Index Optimization (1ms Latency) ───► The Final Hybrid LSH Solution (-28% Speedup)`
+
+### 1. The Data Geometry & Search Dilemma
+![3D Scatter Plot: ZIP vs Year vs Score](images/3d_scatter_zip_vs_year_vs_score.jpeg)
+
+- **Why it matters:** Instantly visualizes the high-dimensional spatial complexity and geometric distribution of the healthcare dataset across the 3 numerical axes ($\text{ZIP Code} \times \text{Year} \times \text{Linear Mean Score}$). This orthogonal structure illustrates why naive linear scans fail and proves the mathematical necessity of 3D spatial indexing trees.
+
+### 2. Spatial Index Performance Optimization
+![3D kNN Query Latency Comparison](images/knn_query_time.png)
+
+- **Why it matters:** Highlights core performance engineering accomplishments. By comparing spatial tree architectures, both **`Octree`** and **`Range Tree`** achieved ultra-low **1-millisecond ($0.001\text{ s}$)** response times for 3D nearest-neighbor retrieval, proving that aligned space partitioning minimizes unnecessary branch traversals.
+
+### 3. The Final Hybrid Solution (LSH + Spatial Pruning)
+![Text Query Latency Comparison: Baseline vs Hybrid Search](images/text_query_time_lsh.png)
+
+- **Why it matters:** Empirically validates the central thesis of the project. Demonstrates how combining 3D spatial tree pruning with MinHash LSH slashes total text search latency by up to **28.0%** ($2.079\text{s} \to 1.496\text{s}$), solving the system scalability bottleneck while maintaining **100% accuracy ($\text{Recall}@5 = 1.0$)**.
+
+---
+
 ## 🏥 Foundation for Healthcare AI Systems & RAG (Retrieval-Augmented Generation)
 
 ### 1. The Real-Time Healthcare Data Challenge
@@ -110,6 +132,10 @@ multidimensional-spatial-indexing-lsh/
 ├── docs/                               # 📄 Documentation & Research Artifacts
 │   ├── 1084660.pdf                     # Original Research Paper & PDF Report
 │   └── Oδηγίες.txt                     # Research Task Instructions (Greek)
+├── images/                             # 🖼️ Benchmark & Geometry Visualizations
+│   ├── 3d_scatter_zip_vs_year_vs_score.jpeg  # 3D Data Geometry Plot
+│   ├── knn_query_time.png              # 3D kNN Latency Benchmark Chart
+│   └── text_query_time_lsh.png         # Hybrid Text Search Speedup Chart
 ├── notebooks/                          # 📓 Notebook Workspace
 │   └── analysis_notebook.ipynb         # Interactive Benchmarking Notebook
 └── src/                                # 🧠 Core Modular Algorithmic Library
@@ -194,19 +220,6 @@ Benchmarked across **18,324 patient satisfaction records** over 20 representativ
 | **Range Tree + LSH** | **~0.00s** 🥇 | **0.001s** 🥇 | 0.094s | 1,546 MB | **1.496s** 🏆 | **-28.0%** 🏆 | **1.0 (100%)** ✅ |
 | **R-Tree + LSH** | 6.86s | 0.011s | 0.081s | 1,697 MB | 1.813s | -9.4% | **1.0 (100%)** ✅ |
 
-### Benchmark Visualization Analysis (PDF Report Figures 4–10)
-
-1. **3D Spatial Geometry (PDF Fig 4):** Plotting ZIP vs Year vs Score reveals a grid-like orthogonal layout. This orthogonal alignment explains why `Range Tree` and `Octree` achieve superior pruning performance over non-aligned structures.
-2. **Tree Build Time Comparison (PDF Fig 6):** `Range Tree` and `KD-Tree` exhibit near-zero spatial build time (~0.00s) due to bulk-loading array constructors. `Octree` requires 0.59s for point-by-point octant insertion, while `R-Tree` requires 6.86s due to MBR enlargement calculations and quadratic splitting. LSH base signature generation adds a uniform ~1.45–1.62s across all methods.
-3. **kNN Query Latency (PDF Fig 7):** `Octree` and `Range Tree` lead with **0.001s (1 ms)** query latency. `KD-Tree` requires 0.006s due to median-split backtracking, while `R-Tree` takes 0.011s due to overlapping MBR branch inspections.
-4. **3D Range Query Latency (PDF Fig 8):** `Octree` records the fastest range search (**0.063s**) thanks to cubical cell pruning.
-5. **Memory Consumption (PDF Fig 9):** `KD-Tree` is the lightest (**1,247 MB**). `R-Tree` is the heaviest (**1,697 MB**) due to explicit MBR bounding objects and node pointer overhead. The baseline memory floor (~1.2 GB) is dominated by the 18,324 MinHash signatures ($18,324 \times 128$ integers).
-6. **Text Query Latency & Speedup (PDF Fig 10):** Full corpus text search takes ~2.08s per query. Hybrid spatial pruning reduces allowed candidate pools by ~50%, yielding dramatic speedups:
-   - **Range Tree + LSH:** $2.079\text{s} \to 1.496\text{s}$ (**28.0% faster**, 🏆 overall winner)
-   - **Octree + LSH:** $2.153\text{s} \to 1.632\text{s}$ (**24.2% faster**)
-   - **KD-Tree + LSH:** $2.025\text{s} \to 1.796\text{s}$ (**11.3% faster**)
-   - **R-Tree + LSH:** $2.002\text{s} \to 1.813\text{s}$ (**9.4% faster**)
-
 ---
 
 ## 💻 Technical Trade-Off & Recommendation Matrix
@@ -256,7 +269,7 @@ jupyter notebook notebooks/analysis_notebook.ipynb
 ---
 
 ## 📄 License
-Distributed under the **MIT License**. See [LICENSE](LICENSE) for full details.
+Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
 
 ## 👤 Author
 **Filippos-Paraskevas Zygouris**  
