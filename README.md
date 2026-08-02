@@ -29,17 +29,17 @@ The architectural progression follows a clear performance pipeline:
 ### 1. The Data Geometry & Search Dilemma
 ![3D Scatter Plot: ZIP vs Year vs Score](images/3d_scatter_zip_vs_year_vs_score.jpeg)
 
-- **Why it matters:** Instantly visualizes the high-dimensional spatial complexity and geometric distribution of the healthcare dataset across the 3 numerical axes ($\text{ZIP Code} \times \text{Year} \times \text{Linear Mean Score}$). This orthogonal structure illustrates why naive linear scans fail and proves the mathematical necessity of 3D spatial indexing trees.
+- **Visual Engineering Insight:** Visualizes the 3D spatial nature of the dataset across the three numerical axes ($\text{ZIP Code} \times \text{Year} \times \text{Linear Mean Score}$). The orthogonal grid structures formed in space visually explain why spatial index structures (such as `Octree` and `Range Tree`) are able to execute such highly effective bounding-box pruning in this specific domain space, discarding large non-matching sub-regions before string processing begins.
 
 ### 2. Spatial Index Performance Optimization
 ![3D kNN Query Latency Comparison](images/knn_query_time.png)
 
-- **Why it matters:** Highlights core performance engineering accomplishments. By comparing spatial tree architectures, both **`Octree`** and **`Range Tree`** achieved ultra-low **1-millisecond ($0.001\text{ s}$)** response times for 3D nearest-neighbor retrieval, proving that aligned space partitioning minimizes unnecessary branch traversals.
+- **Visual Engineering Insight:** Presents response times for $k$-Nearest Neighbors (kNN) queries. Proves that `Octree` and `Range Tree` are the fastest structures (~0.001 seconds / 1ms), while `R-Tree` significantly lags behind (~0.011s) due to the overlapping nature of Minimum Bounding Rectangles (MBRs) requiring multi-branch traversals.
 
 ### 3. The Final Hybrid Solution (LSH + Spatial Pruning)
 ![Text Query Latency Comparison: Baseline vs Hybrid Search](images/text_query_time_lsh.png)
 
-- **Why it matters:** Empirically validates the central thesis of the project. Demonstrates how combining 3D spatial tree pruning with MinHash LSH slashes total text search latency by up to **28.0%** ($2.079\text{s} \to 1.496\text{s}$), solving the system scalability bottleneck while maintaining **100% accuracy ($\text{Recall}@5 = 1.0$)**.
+- **Visual Engineering Insight:** Perhaps the most critical benchmark chart of the project. Compares full-corpus text search execution time against the two-phase hybrid search pipeline ($\text{Spatial Pruning} \to \text{MinHash LSH Bucket Backfill} \to \text{Exact Rerank}$ across 20 representative queries). Clearly demonstrates a **10–30% reduction in query latency** (peaking at **-28.0%** for Range Tree + LSH) without any loss in retrieval accuracy ($\text{Recall}@5 = 1.0$, $\text{Jaccard}@5 = 1.0$), solving the system scalability bottleneck.
 
 ---
 
